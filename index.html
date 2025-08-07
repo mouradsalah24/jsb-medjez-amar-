@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="الموقع الرسمي لنادي جيل مجاز عمار الرياضي - آخر الأخبار والمباريات والنتائج">
+    <meta name="keywords" content="JSB Medjez Amar, جيل مجاز عمار, كرة قدم, عنابة, الجزائر">
+    <title>JSB Medjez Amar - جيل مجاز عمار</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables for consistent theming */
+        :root {
+            --primary-color: #c41e3a;
+            --secondary-color: #1e3a8a;
+            --accent-color: #3498db;
+            --text-color: #333;
+            --light-color: #f5f5f5;
+            --dark-color: #2c3e50;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--light-color) 0%, #e0e0e0 100%);
+            min-height: 100vh;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 50%, #ffffff 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header .subtitle {
+            font-size: 1.2em;
+            color: #f0f0f0;
+        }
+        
+        /* Navigation */
+        .nav {
+            background-color: var(--dark-color);
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+        
+        .nav button:hover {
+            background-color: #2980b9;
+        }
+        
+        .nav button.active {
+            background-color: var(--primary-color);
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        
+        /* Sections */
+        .section {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        .section h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--secondary-color);
+        }
+        
+        /* Match Card */
+        .match-card {
+            background: linear-gradient(135deg, #ffffff 0%, var(--light-color) 100%);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: var(--shadow);
+            border-right: 5px solid var(--primary-color);
+        }
+        
+        .match-card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+        
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+            transition: var(--transition);
+        }
+        
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        
+        /* Forms */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--text-color);
+            font-weight: bold;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+        
+        /* Tables */
+        .table-responsive {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        table th {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 12px;
+            text-align: right;
+        }
+        
+        table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        table tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        
+        .close {
+            color: #aaa;
+            float: left;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: #000;
+        }
+        
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: var(--dark-color);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: var(--shadow);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 1001;
+        }
+        
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .toast.success {
+            background-color: var(--success-color);
+        }
+        
+        .toast.error {
+            background-color: var(--danger-color);
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .nav {
+                padding: 10px;
+            }
+            
+            .nav button {
+                font-size: 14px;
+                padding: 8px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>JSB Medjez Amar</h1>
+        <div class="subtitle">جيل مجاز عمار - القسم الجهوي الأول رابطة عنابة</div>
+    </div>
+    
+    <!-- Navigation -->
+    <div class="nav">
+        <button onclick="showSection('home')" class="active"><i class="fas fa-home"></i> الرئيسية</button>
+        <button onclick="showSection('matches')"><i class="fas fa-calendar-alt"></i> المباريات</button>
+        <button onclick="showSection('standings')"><i class="fas fa-trophy"></i> الترتيب</button>
+        <button onclick="showSection('players')"><i class="fas fa-users"></i> اللاعبون</button>
+        <button onclick="showSection('articles')"><i class="fas fa-newspaper"></i> المقالات</button>
+        <button onclick="showSection('contact')"><i class="fas fa-envelope"></i> اتصل بنا</button>
+        <button onclick="showLoginModal()" style="background-color: var(--primary-color);"><i class="fas fa-cog"></i> لوحة التحكم</button>
+    </div>
+    
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Home Section -->
+        <div id="home" class="section active">
+            <h2>مرحباً بكم في موقع جيل مجاز عمار</h2>
+            <div class="match-card">
+                <h3>المباراة القادمة</h3>
+                <p id="nextMatch">سيتم تحديث معلومات المباراة القادمة...</p>
+            </div>
+            <div class="match-card">
+                <h3>آخر النتائج</h3>
+                <p id="lastResult">سيتم تحديث آخر النتائج...</p>
+            </div>
+        </div>
+        
+        <!-- Matches Section -->
+        <div id="matches" class="section">
+            <h2>جدول المباريات</h2>
+            <div id="matchesList"></div>
+        </div>
+        
+        <!-- Standings Section -->
+        <div id="standings" class="section">
+            <h2>جدول الترتيب</h2>
+            <div class="table-responsive">
+                <table id="standingsTable">
+                    <thead>
+                        <tr>
+                            <th>المركز</th>
+                            <th>الفريق</th>
+                            <th>لعب</th>
+                            <th>فاز</th>
+                            <th>تعادل</th>
+                            <th>خسر</th>
+                            <th>النقاط</th>
+                        </tr>
+                    </thead>
+                    <tbody id="standingsBody">
+                        <!-- سيتم ملؤها ديناميكياً -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Players Section -->
+        <div id="players" class="section">
+            <h2>اللاعبون</h2>
+            <div id="playersList"></div>
+        </div>
+        
+        <!-- Articles Section -->
+        <div id="articles" class="section">
+            <h2>المقالات والأخبار</h2>
+            <div id="articlesList"></div>
+        </div>
+        
+        <!-- Contact Section -->
+        <div id="contact" class="section">
+            <h2>اتصل بالفريق</h2>
+            <div class="form-group">
+                <label>الاسم:</label>
+                <input type="text" id="contactName">
+            </div>
+            <div class="form-group">
+                <label>البريد الإلكتروني:</label>
+                <input type="email" id="contactEmail">
+            </div>
+            <div class="form-group">
+                <label>الرسالة:</label>
+                <textarea id="contactMessage" rows="5"></textarea>
+            </div>
+            <button class="btn btn-success" onclick="sendMessage()">إرسال الرسالة</button>
+        </div>
+        
+        <!-- Admin Panel (Hidden by default) -->
+        <div id="adminPanel" class="section" style="display: none;">
+            <h2>لوحة التحكم - الإدارة</h2>
+            
+            <!-- Add Match Form -->
+            <div style="margin-bottom: 30px;">
+                <h3>إضافة مباراة جديدة</h3>
+                <div class="form-group">
+                    <label>الفريق المنافس:</label>
+                    <input type="text" id="opponentTeam">
+                </div>
+                <div class="form-group">
+                    <label>نوع المباراة:</label>
+                    <select id="matchType">
+                        <option value="ذهاب">ذهاب</option>
+                        <option value="إياب">إياب</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>البطولة:</label>
+                    <input type="text" id="matchCompetition">
+                </div>
+                <div class="form-group">
+                    <label>التاريخ:</label>
+                    <input type="datetime-local" id="matchDate">
+                </div>
+                <div class="form-group">
+                    <label>المكان:</label>
+                    <input type="text" id="matchVenue">
+                </div>
+                <button class="btn btn-success" onclick="addMatch()">إضافة المباراة</button>
+            </div>
+            
+            <!-- Add Article Form -->
+            <div style="margin-bottom: 30px;">
+                <h3>إضافة مقال جديد</h3>
+                <div class="form-group">
+                    <label>عنوان المقال:</label>
+                    <input type="text" id="articleTitle">
+                </div>
+                <div class="form-group">
+                    <label>المحتوى:</label>
+                    <textarea id="articleContent" rows="6"></textarea>
+                </div>
+                <button class="btn btn-success" onclick="addArticle()">نشر المقال</button>
+            </div>
+            
+            <button class="btn btn-danger" onclick="logout()" style="margin-top: 20px;">تسجيل الخروج</button>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <p>جميع الحقوق محفوظة &copy; 2024 - نادي جيل مجاز عمار الرياضي</p>
+    </div>
+    
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLoginModal()">&times;</span>
+            <h2 style="color: var(--primary-color); margin-bottom: 20px;">تسجيل الدخول للإدارة</h2>
+            <div class="form-group">
+                <label>اسم المستخدم:</label>
+                <input type="text" id="username">
+            </div>
+            <div class="form-group">
+                <label>كلمة المرور:</label>
+                <input type="password" id="password">
+            </div>
+            <button class="btn btn-primary" onclick="login()">دخول</button>
+        </div>
+    </div>
+    
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+    
+    <script>
+        // API Base URL
+        const API_URL = 'http://localhost:5000/api';
+        
+        // Global Variables
+        let isAdmin = false;
+        let authToken = localStorage.getItem('authToken');
+        
+        // Utility Functions
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast show';
+            if (type === 'error') {
+                toast.classList.add('error');
+            } else if (type === 'success') {
+                toast.classList.add('success');
+            }
+            
+            setTimeout(() => {
+                toast.className = 'toast';
+            }, 3000);
+        }
+        
+        // API Functions
+        async function apiRequest(endpoint, options = {}) {
+            const url = `${API_URL}${endpoint}`;
+            const defaultOptions = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+            
+            if (authToken) {
+                defaultOptions.headers.Authorization = `Bearer ${authToken}`;
+            }
+            
+            const config = { ...defaultOptions, ...options };
+            
+            try {
+                const response = await fetch(url, config);
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.message || 'حدث خطأ في الخادم');
+                }
+                
+                return data;
+            } catch (error) {
+                console.error('API Error:', error);
+                throw error;
+            }
+        }
+        
+        // Show Section Function
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update nav buttons
+            const navButtons = document.querySelectorAll('.nav button');
+            navButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Load section data
+            if (sectionId === 'matches') {
+                loadMatches();
+            } else if (sectionId === 'standings') {
+                loadStandings();
+            } else if (sectionId === 'players') {
+                loadPlayers();
+            } else if (sectionId === 'articles') {
+                loadArticles();
+            }
+        }
+        
+        // Login Functions
+        function showLoginModal() {
+            document.getElementById('loginModal').style.display = 'block';
+        }
+        
+        function closeLoginModal() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+        
+        async function login() {
+            try {
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                
+                if (!username || !password) {
+                    showToast('يرجى إدخال اسم المستخدم وكلمة المرور', 'error');
+                    return;
+                }
+                
+                const data = await apiRequest('/auth/login', {
+                    method: 'POST',
+                    body: JSON.stringify({ username, password })
+                });
+                
+                // Save token and user info
+                authToken = data.token;
+                localStorage.setItem('authToken', authToken);
+                localStorage.setItem('user', JSON.stringify(data.user));
+                
+                isAdmin = data.user.role === 'admin' || data.user.role === 'editor';
+                
+                closeLoginModal();
+                showAdminPanel();
+                showToast('تم تسجيل الدخول بنجاح!');
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        }
+        
+        function showAdminPanel() {
+            document.getElementById('adminPanel').style.display = 'block';
+            showSection('adminPanel');
+        }
+        
+        function logout() {
+            authToken = null;
+            isAdmin = false;
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('user');
+            document.getElementById('adminPanel').style.display = 'none';
+            showSection('home');
+            showToast('تم تسجيل الخروج بنجاح!');
+        }
+        
+        // Match Functions
+        async function addMatch() {
+            if (!isAdmin) {
+                showToast('يجب تسجيل الدخول أولاً!', 'error');
+                return;
+            }
+            
+            try {
+                const match = {
+                    opponent: document.getElementById('opponentTeam').value,
+                    type: document.getElementById('matchType').value,
+                    competition: document.getElementById('matchCompetition').value,
+                    date: document.getElementById('matchDate').value,
+                    venue: document.getElementById('matchVenue').value
+                };
+                
+                if (!match.opponent || !match.date || !match.venue) {
+                    showToast('يرجى ملء جميع الحقول المطلوبة!', 'error');
+                    return;
+                }
+                
+                await apiRequest('/matches', {
+                    method: 'POST',
+                    body: JSON.stringify(match)
+                });
+                
+                // Clear form
+                document.getElementById('opponentTeam').value = '';
+                document.getElementById('matchDate').value = '';
+                document.getElementById('matchVenue').value = '';
+                
+                showToast('تم إضافة المباراة بنجاح!');
+                loadMatches();
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        }
+        
+        async function loadMatches() {
+            try {
+                const data = await apiRequest('/matches');
+                const matchesList = document.getElementById('matchesList');
+                
+                if (data.matches.length === 0) {
+                    matchesList.innerHTML = '<p>لا توجد مباريات مجدولة حالياً.</p>';
+                    return;
+                }
+                
+                matchesList.innerHTML = '';
+                data.matches.forEach(match => {
+                    const matchCard = document.createElement('div');
+                    matchCard.className = 'match-card';
+                    matchCard.innerHTML = `
+                        <h3>ضد ${match.opponent} - ${match.type}</h3>
+                        <p>التاريخ: ${new Date(match.date).toLocaleString('ar-EG')}</p>
+                        <p>المكان: ${match.venue}</p>
+                        ${isAdmin ? `<button class="btn btn-danger" onclick="deleteMatch('${match._id}')">حذف</button>` : ''}
+                    `;
+                    matchesList.appendChild(matchCard);
+                });
+                
+                // Update home page with next match
+                loadUpcomingMatches();
+                loadRecentResults();
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        }
+        
+        async function loadUpcomingMatches() {
+            try {
+                const matches = await apiRequest('/matches/upcoming');
+                const nextMatchElement = document.getElementById('nextMatch');
+                
+                if (matches.length > 0) {
+                    const nextMatch = matches[0];
+                    nextMatchElement.innerHTML = `
+                        ضد ${nextMatch.opponent} - ${nextMatch.type}<br>
+                        التاريخ: ${new Date(nextMatch.date).toLocaleString('ar-EG')}<br>
+                        المكان: ${nextMatch.venue}
+                    `;
+                } else {
+                    nextMatchElement.textContent = 'لا توجد مباريات قادمة حالياً';
+                }
+            } catch (error) {
+                console.error('Error loading upcoming matches:', error);
+            }
+        }
+        
+        async function loadRecentResults() {
+            try {
+                const matches = await apiRequest('/matches/recent-results');
+                const lastResultElement = document.getElementById('lastResult');
+                
+                if (matches.length > 0) {
+                    const lastMatch = matches[0];
+                    lastResultElement.innerHTML = `
+                        ضد ${lastMatch.opponent} - ${lastMatch.type}<br>
+                        النتيجة: ${lastMatch.result.homeTeam} - ${lastMatch.result.awayTeam}<br>
+                        التاريخ: ${new Date(lastMatch.date).toLocaleDateString('ar-EG')}
+                    `;
+                } else {
+                    lastResultElement.textContent = 'لا توجد نتائج سابقة حالياً';
+                }
+            } catch (error) {
+                console.error('Error loading recent results:', error);
+            }
+        }
+        
+        async function deleteMatch(id) {
+            if (!isAdmin) return;
+            
+            if (confirm('هل أنت متأكد من حذف هذه المباراة؟')) {
+                try {
+                    await apiRequest(`/matches/${id}`, {
+                        method: 'DELETE'
+                    });
+                    
+                    showToast('تم حذف المباراة بنجاح!');
+                    loadMatches();
+                } catch (error) {
+                    showToast(error.message, 'error');
+                }
+            }
+        }
+        
+        // Standings Functions
+        async function loadStandings() {
+            try {
+                const standings = await apiRequest('/standings');
+                const standingsBody = document.getElementById('standingsBody');
+                
+                if (standings.length === 0) {
+                    standingsBody.innerHTML = '<tr><td colspan="7">لا توجد بيانات للترتيب حالياً.</td></tr>';
+                    return;
+                }
+                
+                standingsBody.innerHTML = '';
+                standings.forEach((team, index) => {
+                    const row = document.createElement('tr');
+                    if (team.name === 'JSB Medjez Amar' || team.name === 'جيل مجاز عمار') {
+                        row.style.backgroundColor = '#ffe6e6';
+                        row.style.fontWeight = 'bold';
+                    }
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${team.name}</td>
+                        <td>${team.played}</td>
+                        <td>${team.won}</td>
+                        <td>${team.drawn}</td>
+                        <td>${team.lost}</td>
+                        <td>${team.points}</td>
+                    `;
+                    standingsBody.appendChild(row);
+                });
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        }
+        
+        // Players Functions
+        async function loadPlayers() {
+            try {
+                const data = await apiRequest('/players');
+                const playersList = document.getElementById('playersList');
+                
+                if (data.players.length === 0) {
+                    playersList.innerHTML = '<p>لا توجد بيانات للاعبين حالياً.</p>';
+                    return;
+                }
+                
+                playersList.innerHTML = '';
+                data.players.forEach(player => {
+                    const playerCard = document.createElement('div');
+                    playerCard.className = 'match-card';
+                    playerCard.innerHTML = `
+                        <h3>${player.name}</h3>
+                        <p>المركز: ${player.position}</p>
+                        <p>الرقم: ${player.number}</p>
+                        <p>الجنسية: ${player.nationality}</p>
+                    `;
+                    playersList.appendChild(playerCard);
+                });
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        }
+        
+        // Article Functions
+        async function addArticle() {
+            if (!isAdmin) {
+                showToast('يجب تسجيل الدخول أولاً!', 'error');
+                return;
+            }
+            
+            try {
+                const article = {
+                    title: document.getElementById('articleTitle').value,
+                    content: document.getElementById('articleContent').value,
+                    status: 'منشور'
+                };
+                
+                if (!article.title || !article.content) {
+                    showToast('يرجى ملء العنوان والمحتوى!', 'error');
+                    return;
+                }
+                
+                await apiRequest('/articles', {
+                    method: 'POST',
+                    body: JSON.stringify(article)
+                });
+                
+                // Clear form
+                document.getElementById('articleTitle').value = '';
+                document.getElementById('articleContent').value = '';
+                
+                showToast('تم نشر المقال بنجاح!');
+                loadArticles();
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        }
+        
+        async function loadArticles() {
+            try {
+                const data = await apiRequest('/articles');
+                const articlesList = document.getElementById('articlesList');
+                
+                if (data.articles.length === 0) {
+                    articlesList.innerHTML = '<p>لا توجد مقالات حالياً.</p>';
+                    return;
+                }
+                
+                articlesList.innerHTML = '';
+                data.articles.forEach(article => {
+                    const articleCard = document.createElement('div');
+                    articleCard.className = 'match-card';
+                    articleCard.innerHTML = `
+                        <h3>${article.title}</h3>
+                        <p>${article.content.substring(0, 200)}...</p>
+                        ${isAdmin ? `<button class="btn btn-danger" onclick="deleteArticle('${article._id}')">حذف</button>` : ''}
+                    `;
+                    articlesList.appendChild(articleCard);
+                });
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        }
+        
+        async function deleteArticle(id) {
+            if (!isAdmin) return;
+            
+            if (confirm('هل أنت متأكد من حذف هذا المقال؟')) {
+                try {
+                    await apiRequest(`/articles/${id}`, {
+                        method: 'DELETE'
+                    });
+                    
+                    showToast('تم حذف المقال بنجاح!');
+                    loadArticles();
+                } catch (error) {
+                    showToast(error.message, 'error');
+                }
+            }
+        }
+        
+        // Contact Function
+        async function sendMessage() {
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const message = document.getElementById('contactMessage').value;
+            
+            if (!name || !email || !message) {
+                showToast('يرجى ملء جميع الحقول!', 'error');
+                return;
+            }
+            
+            showToast('تم إرسال رسالتك بنجاح! سنتواصل معك قريباً.');
+            
+            // Clear form
+            document.getElementById('contactName').value = '';
+            document.getElementById('contactEmail').value = '';
+            document.getElementById('contactMessage').value = '';
+        }
+        
+        // Initialize page
+        window.onload = function() {
+            loadMatches();
+            
+            // Check if user is logged in
+            if (authToken) {
+                const user = JSON.parse(localStorage.getItem('user'));
+                isAdmin = user.role === 'admin' || user.role === 'editor';
+            }
+            
+            // Close modal when clicking outside
+            window.onclick = function(event) {
+                const modal = document.getElementById('loginModal');
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
